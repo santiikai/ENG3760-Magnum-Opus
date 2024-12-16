@@ -37,6 +37,28 @@ Now that I am ready, I think I can finally [[get to work|work]].</tw-passagedata
 
 [[I should get ahead of the day|get up]]
 [[Another 15 minutes, I really need the rest|Fantasy]]</tw-passagedata><tw-passagedata pid="6" name="Explore" tags="" position="325,650" size="100,100">(enchant:?page,(text-colour:black)+(bg:#ffdeeb))
+(set: _lastPassage to (history:)&#39;s last)
+(if: $visitedKeepAtIt is true)[I start to wander, following the sound of the music. It feels like I have been walking forever when all of a sudden, a familiar face appears.
+(click:&quot;familiar&quot;)[&quot;It&#39;s nice to see you, Uce.&quot;
+
+I turn to my left to see Main Event Jey Uso! 
+
+//What are you doing here?//
+
+&lt;img src=&quot;uso-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
+
+&quot;I had the day off, wanted to check out this sweet party. Are you headed there now?&quot;]
+(click:&quot;now&quot;)[//Yes, actually do you know where it is?//]
+
+(click:&quot;where&quot;)[&quot;It&#39;s right behind you, Uce.&quot;]
+
+(click:&quot;behind you&quot;)[//What?//
+
+I turn around and lo and behold, the party really is behind me.
+
+[[Continue|Party]]
+]]
+(else:)[
 As I start walking towards the music, I hear a shrill whistle behind me. The trees shake, their vivid color blurring at the edges. This sound doesn&#39;t belong here.
 
 (click:&quot;here&quot;)[I stand in place for a moment before sitting in the grass. Maybe the sound will stop.]
@@ -63,11 +85,7 @@ I turn to my left to see Main Event Jey Uso!
 
 [[Keep walking|Pre party]]
 [[Stay here|get up]]
-
-]
-
-
-</tw-passagedata><tw-passagedata pid="7" name="work" tags="" position="900,400" size="100,100">Time to clear off my desk and set up my laptop. The best place to start would be with checking my schedule.
+]]</tw-passagedata><tw-passagedata pid="7" name="work" tags="" position="900,400" size="100,100">Time to clear off my desk and set up my laptop. The best place to start would be with checking my schedule.
 
 (click:&quot;schedule&quot;)[Busy week, lots to do. Small assignments here and there, and one big project looming overhead, due tomorrow. I have been slowly getting through it, but I don&#39;t think I can afford to put it off any longer. Even if it is a lot of work, I really want to finish it today. I should really get started.]
 
@@ -141,12 +159,13 @@ I sit in a beautiful field filled with lush green technicolor grass. I kneel dow
 
 
 
-</tw-passagedata><tw-passagedata pid="11" name="Keep at it" tags="" position="1025,750" size="100,100">(set: _lastPassage to (history:)&#39;s last)
+</tw-passagedata><tw-passagedata pid="11" name="Keep at it" tags="" position="1125,825" size="100,100">(set: _lastPassage to (history:)&#39;s last)
+(set: $visitedKeepAtIt to true)
 (if: _lastPassage is &quot;Take a break&quot;)[That was a nice break, I definitely needed it. If I kept pushing myself, there is no way I would be able to get this done. 
 
 (click:&quot;done&quot;)[I am starting to see the finish line. This morning, I would have never thought I could get this far. Today has been really productive. It&#39;s getting late, so I could actually stop here if I wanted to, but I am still worried that I won&#39;t have the motivation tomorrow.
 
-[[Stop for the day|End 1]]
+[[Head to bed|Fantasy]]
 [[I need to continue|End 2]]
 ]]
 
@@ -206,11 +225,7 @@ Everyone is moving in sync. Thrashing and head banging to the wild music from th
 
 Before I know it, I am pulled in and a group forms around me. I am not much of a dancer, but something is telling me I am the best in the world. I start to let loose, busting out my best moves for all to see.
 [[Go back|Party]]
-</tw-passagedata><tw-passagedata pid="17" name="End 1" tags="" position="1175,750" size="100,100">&lt;img src=&quot;relax.jpg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
-I may not have finished the project, but I sure got a lot done today! It&#39;s a good thing I won&#39;t have to stay up late tonight to get it done. 
-
-It will be nice to spend time with my friends tomorrow, I haven&#39;t seen them in a while.
-
+</tw-passagedata><tw-passagedata pid="17" name="End 1" tags="" position="800,1125" size="100,100">&lt;img src=&quot;relax.jpg&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
 The End
 [[Play Again|Wake Up]]</tw-passagedata><tw-passagedata pid="18" name="food" tags="" position="425,950" size="100,100">(enchant:?page,(text-colour:black)+(bg:#ffe8cc))
 (set:_visitedFood to true)
@@ -244,7 +259,6 @@ The entertainment area is absolutely wild. A professional hula hooper. A monster
     [[The food|food]]
     [[The entertainment|entertainment]]
 ]
-
 (else-if: _lastPassage is &quot;work&quot; or _lastPassage is &quot;relax&quot;)[
 Where am I?
 	(click:&quot;Where am I&quot;)[&quot;You made it Uce!&quot;
@@ -271,19 +285,35 @@ I open my eyes again and find myself back in my dream from this morning. It&#39;
     	[[The food|food]]
     	[[The entertainment|entertainment]]
 ]
-(else:)[
-    (if: _visitedParty)[
-    	&lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
-        &quot;This party is awesome, there&#39;s so much to explore!&quot;
-    ]
+(else-if: $visitedKeepAtIt is true)[
+&lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
+        &quot;What are you waiting for, Uce? Let&#39;s check it out!&quot;
     [[The band|band]]
-    [[The dancefloor|dance]]
+    [[The dance floor|dance]]
     [[The food|food]]
     [[The entertainment|entertainment]]
-    (if: _visitedParty)[
-        [[I&#39;m heading out|reality]]
+]
+(else-if:_visitedParty is true)[
+ (if: $visitedKeepAtIt is true)[
+ 	&lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
+        &quot;This party is awesome, there&#39;s so much to explore!&quot;
+         [[The band|band]]
+    [[The dance floor|dance]]
+    [[The food|food]]
+    [[The entertainment|entertainment]]
+        [[Play Again|End 1]]
+        ]
+ (else:)[
+	&lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
+        &quot;This party is awesome, there&#39;s so much to explore!&quot;
+         [[The band|band]]
+    [[The dance floor|dance]]
+    [[The food|food]]
+    [[The entertainment|entertainment]]
+    [[I&#39;m heading out|reality]]
+   ]
     ]
-]</tw-passagedata><tw-passagedata pid="22" name="Title" tags="" position="200,300" size="100,100">&lt;img src=&quot;title.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 90%;&quot;&gt;
+</tw-passagedata><tw-passagedata pid="22" name="Title" tags="" position="200,300" size="100,100">&lt;img src=&quot;title.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 90%;&quot;&gt;
 
 [[Start|Wake Up]]</tw-passagedata></tw-storydata>
 <script title="Twine engine code" data-main="harlowe">(function(){"use strict";
