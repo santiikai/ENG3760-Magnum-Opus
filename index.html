@@ -9,7 +9,7 @@
 </head>
 <body>
 <tw-story><noscript><tw-noscript>JavaScript needs to be enabled to play Digital storytelling project.</tw-noscript></noscript></tw-story>
-<tw-storydata name="Digital storytelling project" startnode="22" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="AE13A9BB-9C8D-4B47-AF55-84FBF48A7F3D" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="shower" tags="" position="700,150" size="100,100">A good shower always helps me wake up. The warm water almost reminds me of my bed. 
+<tw-storydata name="Digital storytelling project" startnode="22" creator="Twine" creator-version="2.10.0" format="Harlowe" format-version="3.3.9" ifid="AE13A9BB-9C8D-4B47-AF55-84FBF48A7F3D" options="" tags="" zoom="0.6" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css"></style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="shower" tags="" position="700,150" size="100,100">A good shower always helps me wake up. The warm water almost reminds me of my bed. 
 
 I almost don&#39;t want to leave, but I really should finish up and [[get dressed]].</tw-passagedata><tw-passagedata pid="2" name="get up" tags="" position="525,250" size="100,100">(set: _lastPassage to (history:)&#39;s last)
 (if: _lastPassage is &quot;Wake Up&quot;)[Maybe it is better to just get this over with. The extra time would have just made it harder to get out of bed anyways. Time to wash up.
@@ -247,72 +247,60 @@ I jump out of bed, wash up quickly and get straight to work.
 (set:_visitedEntertainment to true)
 &lt;img src=&quot;entertainment.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
 The entertainment area is absolutely wild. A professional hula hooper. A monster truck battle. A large hot wheels race track. I join the crowd, cheering and laughing with my many new friends. It&#39;s so nice to be here, I hope this never ends.
-[[Go back|Party]]</tw-passagedata><tw-passagedata pid="21" name="Party" tags="" position="475,775" size="100,100">(enchant:?page,(text-colour:black)+(bg:#ffe3e3))
+[[Go back|Party]]</tw-passagedata><tw-passagedata pid="21" name="Party" tags="" position="475,775" size="100,100">((enchant:?page,(text-colour:black)+(bg:#ffe3e3))
 (set: _lastPassage to (history:)&#39;s last)
 (set: _visitedParty to (visited: &quot;band&quot;) or (visited: &quot;dance&quot;) or (visited: &quot;food&quot;) or (visited: &quot;entertainment&quot;))
 
+&lt;!-- Pre-party condition --&gt;
 (if: _lastPassage is &quot;Pre party&quot;)[
-		&lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
-        &quot;What are you waiting for, Uce? Let&#39;s check it out!&quot;
+    &lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
+    &quot;What are you waiting for, Uce? Let&#39;s check it out!&quot;
     [[The band|band]]
     [[The dance floor|dance]]
     [[The food|food]]
     [[The entertainment|entertainment]]
 ]
+
+&lt;!-- Post-party condition --&gt;
+(else-if: _visitedParty is true)[
+    &lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
+    (if: $visitedKeepAtIt is true)[
+    &quot;You&#39;ve explored a lot, Uce! What next?&quot;
+        [[The band|band]]
+    [[The dance floor|dance]]
+    [[The food|food]]
+    [[The entertainment|entertainment]]
+        [[Play again|Wake Up]]
+    ]
+    (else:)[
+    &quot;You&#39;ve explored a lot, Uce! What next?&quot;
+        [[The band|band]]
+    [[The dance floor|dance]]
+    [[The food|food]]
+    [[The entertainment|entertainment]]
+        [[Head out|reality]]
+
+    ]
+]
+
+&lt;!-- Work/relax condition --&gt;
 (else-if: _lastPassage is &quot;work&quot; or _lastPassage is &quot;relax&quot;)[
-Where am I?
-	(click:&quot;Where am I&quot;)[&quot;You made it Uce!&quot;
+    Where am I?
+    (click:&quot;Where am I?&quot;)[
+        &quot;You made it, Uce!&quot;
         &lt;img src=&quot;uso-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
         //Main Event Jey Uso? What are you doing here?//
-        &quot;I was just about to check out the party, you coming?&quot;]
+        &quot;I was just about to check out the party, you coming?&quot;
         (click:&quot;coming&quot;)[
-            //Party?//
             &lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
-            I see. Well, since I&#39;m here it wouldn&#39;t hurt to explore I guess.
-          [[The band|band]]
-          [[The dancefloor|dance]]
-          [[The food|food]]
-          [[The entertainment|entertainment]]
+            I see. Well, since I&#39;m here, it wouldn&#39;t hurt to explore, I guess.
+            [[The band|band]]
+            [[The dancefloor|dance]]
+            [[The food|food]]
+            [[The entertainment|entertainment]]
         ]
     ]
-(else-if: _lastPassage is &quot;work&quot; or _lastPassage is &quot;relax&quot; and $visitedFantasy is true)[
-I open my eyes again and find myself back in my dream from this morning. It&#39;s as though I never left.
-	(click:&quot;left&quot;)[&quot;You made it Uce!&quot;]
-        &lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
-        &quot;What do you want to check out first?&quot;
-         [[The band|band]]
-    	[[The dancefloor|dance]]
-    	[[The food|food]]
-    	[[The entertainment|entertainment]]
 ]
-(else-if: $visitedKeepAtIt is true)[
-&lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
-        &quot;What are you waiting for, Uce? Let&#39;s check it out!&quot;
-    [[The band|band]]
-    [[The dance floor|dance]]
-    [[The food|food]]
-    [[The entertainment|entertainment]]
-]
-(else-if:_visitedParty is true)[
- (if: $visitedKeepAtIt is true)[
- 	&lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
-        &quot;This party is awesome, there&#39;s so much to explore!&quot;
-         [[The band|band]]
-    [[The dance floor|dance]]
-    [[The food|food]]
-    [[The entertainment|entertainment]]
-        [[Play Again|End 1]]
-        ]
- (else:)[
-	&lt;img src=&quot;party-intro.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 75%;&quot;&gt;
-        &quot;This party is awesome, there&#39;s so much to explore!&quot;
-         [[The band|band]]
-    [[The dance floor|dance]]
-    [[The food|food]]
-    [[The entertainment|entertainment]]
-    [[I&#39;m heading out|reality]]
-   ]
-    ]
 </tw-passagedata><tw-passagedata pid="22" name="Title" tags="" position="200,300" size="100,100">&lt;img src=&quot;title.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 90%;&quot;&gt;
 
 [[Start|Wake Up]]</tw-passagedata></tw-storydata>
